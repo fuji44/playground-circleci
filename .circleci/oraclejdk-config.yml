@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: oracle/openjdk:8
+    steps:
+      - run:
+          name: Install AWS CLI
+          command: |
+            yum -y install awscli git
+      - run:
+          name: Show Command version
+          command: |
+            aws --version
+            java -version
+            git --version

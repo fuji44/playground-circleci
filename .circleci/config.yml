@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: m2-cache-{{ checksum "pom.xml" }}
+          key: m2-cache-{{ checksum "pom.xml" }}
       - run:
           command: |
             ./mvnw compile
@@ -37,7 +37,7 @@ jobs:
       - attach_workspace:
           at: .
       - restore_cache:
-          keys: m2-cache-{{ checksum "pom.xml" }}
+          key: m2-cache-{{ checksum "pom.xml" }}
       - run:
           command: |
             ./mvnw install -Dmaven.test.skip=true

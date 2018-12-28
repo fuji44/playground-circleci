@@ -1,17 +1,65 @@
-version: 2
+version: 2.0
+
+# executors:
+#   builder:
+#     docker:
+#       - image: openjdk:8-jdk-alpine
+
 jobs:
-  build:
+  compile:
     docker:
-      - image: openjdk:8-jdk-slim
+      - image: openjdk:8-jdk-alpine
+    # environment:
+    #   TEST_REPORTS: /tmp/test-reports
+    # working_directory: ~/build
+    steps:
+      - checkout
+      - run:
+        command: ./mvnw compile
+
+  test:
+    docker:
+      - image: openjdk:8-jdk-alpine
     steps:
       - run:
-          name: Install AWS CLI
-          command: |
-            apt-get update
-            apt-get -y --no-install-recommends install groff awscli git
+        command: ./mvnw test
+
+  package:
+    docker:
+      - image: openjdk:8-jdk-alpine
+    steps:
       - run:
-          name: Show Command version
-          command: |
-            aws --version
-            java -version
-            git --version
+        command: ./mvnw package -Dmaven.test.skip=true
+
+
+  deploy-release-repo:
+    docker:
+      - image: openjdk:8-jdk-alpine
+    steps:
+      - run:
+        command: ./mvnw install -Dmaven.test.skip=true
+
+
+  # deploy-snapshot-repo:
+  #   docker:
+  #     - image: openjdk:8-jdk-alpine
+
+
+workflows:
+  version: 2
+
+  build-test-and-deploy:
+    jobs:
+      - compile:
+      - test:
+        requires:
+          - compile
+      - package:
+        requires:
+          - test
+      - deploy-release-repo:
+        requires:
+          - package
+      # - deploy-snapshot-repo:
+      #   requires:
+      #     - package

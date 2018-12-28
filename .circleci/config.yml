@@ -16,11 +16,17 @@ jobs:
       - run:
           command: |
             ./mvnw compile
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
 
   install-local-repo:
     executor: builder
     steps:
+      - attach_workspace:
+          at: .
       - run:
           command: |
             ./mvnw install -Dmaven.test.skip=true

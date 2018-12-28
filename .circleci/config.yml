@@ -1,17 +1,14 @@
-version: 2.0
+version: 2.1
 
-# executors:
-#   builder:
-#     docker:
-#       - image: openjdk:8-jdk-alpine
+executors:
+  builder:
+    docker:
+      - image: openjdk:8-jdk-alpine
+    working_directory: ~/workspace
 
 jobs:
   package:
-    docker:
-      - image: openjdk:8-jdk-alpine
-    # environment:
-    #   TEST_REPORTS: /tmp/test-reports
-    working_directory: ~/workspace
+    executor: builder
     steps:
       - checkout
       - restore_cache:
@@ -19,21 +16,11 @@ jobs:
       - run:
           command: |
             ./mvnw compile
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
 
 
   install-local-repo:
-    docker:
-      - image: openjdk:8-jdk-alpine
-    working_directory: ~/workspace
+    executor: builder
     steps:
-      - attach_workspace:
-          at: .
-      - restore_cache:
-          key: m2-cache-{{ checksum "pom.xml" }}
       - run:
           command: |
             ./mvnw install -Dmaven.test.skip=true
@@ -49,7 +36,7 @@ jobs:
 
 
 workflows:
-  version: 2
+  version: 2.1
 
   build-test-and-deploy:
     jobs:

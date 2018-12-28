@@ -11,18 +11,24 @@ jobs:
       - image: openjdk:8-jdk-alpine
     # environment:
     #   TEST_REPORTS: /tmp/test-reports
-    working_directory: ~/work
+    working_directory: ~/workspace
     steps:
       - checkout
       - run:
           command: |
             ./mvnw compile
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   test:
     docker:
       - image: openjdk:8-jdk-alpine
-    working_directory: ~/work
+    working_directory: ~/workspace
     steps:
+      - attach_workspace:
+          at: .
       - run:
           command: |
             ./mvnw test
@@ -30,7 +36,7 @@ jobs:
   package:
     docker:
       - image: openjdk:8-jdk-alpine
-    working_directory: ~/work
+    working_directory: ~/workspace
     steps:
       - run:
           command: |
@@ -40,7 +46,7 @@ jobs:
   deploy-release-repo:
     docker:
       - image: openjdk:8-jdk-alpine
-    working_directory: ~/work
+    working_directory: ~/workspace
     steps:
       - run:
           command: |

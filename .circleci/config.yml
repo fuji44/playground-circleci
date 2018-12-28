@@ -13,9 +13,9 @@ jobs:
     #   TEST_REPORTS: /tmp/test-reports
     working_directory: ~/workspace
     steps:
+      - checkout
       - restore_cache:
           keys: m2-cache-{{ checksum "pom.xml" }}
-      - checkout
       - run:
           command: |
             ./mvnw compile
@@ -34,10 +34,10 @@ jobs:
       - image: openjdk:8-jdk-alpine
     working_directory: ~/workspace
     steps:
-      - restore_cache:
-          keys: m2-cache-{{ checksum "pom.xml" }}
       - attach_workspace:
           at: .
+      - restore_cache:
+          keys: m2-cache-{{ checksum "pom.xml" }}
       - run:
           command: |
             ./mvnw install -Dmaven.test.skip=true

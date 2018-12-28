@@ -23,10 +23,6 @@ jobs:
           root: .
           paths:
             - .
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: m2-cache-{{ checksum "pom.xml" }}
 
 
   install-local-repo:

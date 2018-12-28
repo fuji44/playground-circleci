@@ -15,23 +15,24 @@ jobs:
     steps:
       - checkout
       - run:
-        command: |
-          ./mvnw compile
+          command: |
+            ./mvnw compile
 
   test:
     docker:
       - image: openjdk:8-jdk-alpine
     steps:
       - run:
-        command: |
-          ./mvnw test
+          command: |
+            ./mvnw test
 
   package:
     docker:
       - image: openjdk:8-jdk-alpine
     steps:
       - run:
-        command: ./mvnw package -Dmaven.test.skip=true
+          command: |
+            ./mvnw package -Dmaven.test.skip=true
 
 
   deploy-release-repo:
@@ -39,7 +40,8 @@ jobs:
       - image: openjdk:8-jdk-alpine
     steps:
       - run:
-        command: ./mvnw install -Dmaven.test.skip=true
+          command: |
+            ./mvnw install -Dmaven.test.skip=true
 
 
   # deploy-snapshot-repo:

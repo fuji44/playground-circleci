@@ -52,14 +52,14 @@ workflows:
     jobs:
       - compile
       - test:
-        requires:
-          - compile
+          requires:
+            - compile
       - package:
-        requires:
-          - test
+          requires:
+            - test
       - deploy-release-repo:
-        requires:
-          - package
+          requires:
+            - package
       # - deploy-snapshot-repo:
       #   requires:
       #     - package

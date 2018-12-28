@@ -11,7 +11,7 @@ jobs:
       - image: openjdk:8-jdk-alpine
     # environment:
     #   TEST_REPORTS: /tmp/test-reports
-    # working_directory: ~/build
+    working_directory: ~/work
     steps:
       - checkout
       - run:
@@ -21,6 +21,7 @@ jobs:
   test:
     docker:
       - image: openjdk:8-jdk-alpine
+    working_directory: ~/work
     steps:
       - run:
           command: |
@@ -29,6 +30,7 @@ jobs:
   package:
     docker:
       - image: openjdk:8-jdk-alpine
+    working_directory: ~/work
     steps:
       - run:
           command: |
@@ -38,6 +40,7 @@ jobs:
   deploy-release-repo:
     docker:
       - image: openjdk:8-jdk-alpine
+    working_directory: ~/work
     steps:
       - run:
           command: |

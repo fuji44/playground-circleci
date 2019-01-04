@@ -6,11 +6,18 @@
 
   <groupId>com.fuji44</groupId>
   <artifactId>playground-circleci-maven</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
 
   <name>playground-circleci-maven</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
+
+  <scm>
+    <connection>scm:git:git@github.com:fuji44/playground-circleci.git</connection>
+    <url>scm:git:git@github.com:fuji44/playground-circleci.git</url>
+    <developerConnection>scm:git:git@github.com:fuji44/playground-circleci.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -68,6 +75,14 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.5.3</version>
+          <configuration>
+            <tagNameFormat>v@{project.version}</tagNameFormat>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>

@@ -5,7 +5,7 @@
 
   <groupId>com.fuji44</groupId>
   <artifactId>playground-circleci-maven</artifactId>
-  <version>1.0.7-SNAPSHOT</version>
+  <version>1.0.7</version>
 
   <name>playground-circleci-maven</name>
   <!-- FIXME change it to the project's website -->
@@ -15,7 +15,7 @@
     <connection>scm:git:git@github.com:fuji44/playground-circleci.git</connection>
     <url>scm:git:git@github.com:fuji44/playground-circleci.git</url>
     <developerConnection>scm:git:git@github.com:fuji44/playground-circleci.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v1.0.7</tag>
   </scm>
 
   <properties>

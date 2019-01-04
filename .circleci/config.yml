@@ -27,6 +27,10 @@ jobs:
           at: .
       - run:
           command: |
+            apt update
+            apt -y --no-install-recommends install git
+      - run:
+          command: |
             ./mvnw release:perform -DconnectionUrl=scm:git:git@github.com:fuji44/playground-circleci.git#${CIRCLE_TAG}
       - persist_to_workspace:
           root: .

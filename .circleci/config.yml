@@ -47,9 +47,13 @@ workflows:
   build-test-and-deploy:
     jobs:
       - package
-      - install-local-repo:
+      - hold:
+          type: approval
           requires:
             - package
+      - install-local-repo:
+          requires:
+            - hold
       # - deploy-snapshot-repo:
       #   requires:
       #     - package

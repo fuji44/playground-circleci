@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.fuji44</groupId>
   <artifactId>playground-circleci-maven</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>playground-circleci-maven</name>
   <!-- FIXME change it to the project's website -->
@@ -16,6 +15,7 @@
     <connection>scm:git:git@github.com:fuji44/playground-circleci.git</connection>
     <url>scm:git:git@github.com:fuji44/playground-circleci.git</url>
     <developerConnection>scm:git:git@github.com:fuji44/playground-circleci.git</developerConnection>
+    <tag>v1.0.0</tag>
   </scm>
 
   <properties>

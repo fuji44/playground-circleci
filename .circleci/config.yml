@@ -20,8 +20,6 @@ jobs:
           root: .
           paths:
             - .
-
-
   install-local-repo:
     executor: builder
     steps:
@@ -34,12 +32,6 @@ jobs:
           paths:
             - ~/.m2
           key: m2-cache-{{ checksum "pom.xml" }}
-
-
-  # deploy-snapshot-repo:
-  #   docker:
-  #     - image: openjdk:8-jdk-alpine
-
 
 workflows:
   version: 2.1
@@ -54,6 +46,3 @@ workflows:
       - install-local-repo:
           requires:
             - hold
-      # - deploy-snapshot-repo:
-      #   requires:
-      #     - package

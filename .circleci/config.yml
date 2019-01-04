@@ -3,7 +3,7 @@ version: 2.1
 executors:
   builder:
     docker:
-      - image: openjdk:8-jdk-alpine
+      - image: openjdk:8-jdk-slim
     working_directory: ~/workspace
 
 jobs:
@@ -25,6 +25,10 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          command: |
+            apt update
+            apt -y --no-install-recommends install git
       - run:
           command: |
             ./mvnw --batch-mode release:prepare

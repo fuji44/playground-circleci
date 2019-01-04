@@ -3,17 +3,17 @@ version: 2.1
 executors:
   builder:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: openjdk:8-jdk-slim
     working_directory: ~/workspace
 
 jobs:
   package:
     executor: builder
     steps:
-      # - run:
-      #     command: |
-      #       apt update
-      #       apt -y --no-install-recommends install git
+      - run:
+          command: |
+            apt update
+            apt -y --no-install-recommends install git ssh
       - checkout
       - restore_cache:
           key: m2-cache-{{ checksum "pom.xml" }}
@@ -29,14 +29,10 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      # - run:
-      #     command: |
-      #       apt update
-      #       apt -y --no-install-recommends install git
       - run:
           command: |
-            echo "scm.url=scm\:git\:git@github.com\:fuji44/playground-circleci.git" >> release.properties
-            echo "scm.tag=${CIRCLE_TAG}" >> release.properties
+            apt update
+            apt -y --no-install-recommends install git ssh
       - run:
           command: |
             mkdir -m 700 ~/.ssh
@@ -44,6 +40,8 @@ jobs:
             chmod 600 ~/.ssh/known_hosts
       - run:
           command: |
+            echo "scm.url=scm\:git\:git@github.com\:fuji44/playground-circleci.git" >> release.properties
+            echo "scm.tag=${CIRCLE_TAG}" >> release.properties
             ./mvnw release:perform
       - persist_to_workspace:
           root: .

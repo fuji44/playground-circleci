@@ -29,6 +29,8 @@ jobs:
           command: |
             apt update
             apt -y --no-install-recommends install git
+            git config user.email "<email>"
+            git config user.name "CircleCI"
       - run:
           command: |
             ./mvnw --batch-mode release:prepare

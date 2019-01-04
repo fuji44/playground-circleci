@@ -10,6 +10,10 @@ jobs:
   package:
     executor: builder
     steps:
+      - run:
+          command: |
+            apt update
+            apt -y --no-install-recommends install git
       - checkout
       - restore_cache:
           key: m2-cache-{{ checksum "pom.xml" }}

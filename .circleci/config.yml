@@ -50,10 +50,10 @@ workflows:
 
   build-test-and-deploy:
     jobs:
-      - package
-          # filters: # 全てのブランチPushとタグPushが対象
-          #   tags:
-          #     only: /.*/
+      - package:
+          filters: # 全てのブランチPushとvで始まるタグPushのみ対象
+            tags:
+              only: /^v.*/
       - release-perform:
           requires:
             - package

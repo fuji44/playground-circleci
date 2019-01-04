@@ -20,24 +20,6 @@ jobs:
           root: .
           paths:
             - .
-  release-prepare:
-    executor: builder
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          command: |
-            apt update
-            apt -y --no-install-recommends install git
-            git config user.email "<email>"
-            git config user.name "CircleCI"
-      - run:
-          command: |
-            ./mvnw --batch-mode release:branch -DbranchName=release-version
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
   release-perform:
     executor: builder
     steps:
@@ -45,7 +27,7 @@ jobs:
           at: .
       - run:
           command: |
-            ./mvnw release:perform -DdryRun
+            ./mvnw release:perform -DconnectionUrl=scm:git:git@github.com:fuji44/playground-circleci.git#${CIRCLE_TAG}
       - persist_to_workspace:
           root: .
           paths:
@@ -60,14 +42,15 @@ workflows:
 
   build-test-and-deploy:
     jobs:
-      - package
-      - hold:
-          type: approval
-          requires:
-            - package
-      - release-prepare:
-          requires:
-            - hold
+      - package:
+          filters: # 全てのブランチPushとタグPushが対象
+            tags:
+              only: /.*/
       - release-perform:
           requires:
-            - release-prepare
+            - package
+          filters: # vで始まるタグPushのみ対象
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/

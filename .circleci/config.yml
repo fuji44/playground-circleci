@@ -33,7 +33,7 @@ jobs:
             git config user.name "CircleCI"
       - run:
           command: |
-            ./mvnw --batch-mode release:prepare
+            ./mvnw --batch-mode release:branch -DbranchName=release-version
       - persist_to_workspace:
           root: .
           paths:

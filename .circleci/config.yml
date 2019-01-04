@@ -35,7 +35,11 @@ jobs:
       #       apt -y --no-install-recommends install git
       - run:
           command: |
-            ./mvnw release:perform -DconnectionUrl=scm:git:git@github.com:fuji44/playground-circleci.git#${CIRCLE_TAG}
+            echo "scm.url=scm\:git\:git@github.com\:fuji44/playground-circleci.git" >> release.properties
+            echo "scm.tag=${CIRCLE_TAG}" >> release.properties
+      - run:
+          command: |
+            ./mvnw release:perform
       - persist_to_workspace:
           root: .
           paths:

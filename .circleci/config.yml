@@ -51,9 +51,9 @@ workflows:
   build-test-and-deploy:
     jobs:
       - package:
-          filters: # 全てのブランチPushとタグPushが対象
-            tags:
-              only: /.*/
+          # filters: # 全てのブランチPushとタグPushが対象
+          #   tags:
+          #     only: /.*/
       - release-perform:
           requires:
             - package

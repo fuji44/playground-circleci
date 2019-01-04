@@ -3,7 +3,7 @@ version: 2.1
 executors:
   builder:
     docker:
-      - image: openjdk:8-jdk-slim
+      - image: circleci/openjdk:8-jdk
     working_directory: ~/workspace
 
 jobs:
@@ -29,10 +29,10 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          command: |
-            apt update
-            apt -y --no-install-recommends install git
+      # - run:
+      #     command: |
+      #       apt update
+      #       apt -y --no-install-recommends install git
       - run:
           command: |
             ./mvnw release:perform -DconnectionUrl=scm:git:git@github.com:fuji44/playground-circleci.git#${CIRCLE_TAG}

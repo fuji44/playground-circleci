@@ -50,7 +50,7 @@ workflows:
 
   build-test-and-deploy:
     jobs:
-      - package:
+      - package
           # filters: # 全てのブランチPushとタグPushが対象
           #   tags:
           #     only: /.*/

@@ -39,6 +39,9 @@ jobs:
             echo "scm.tag=${CIRCLE_TAG}" >> release.properties
       - run:
           command: |
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - run:
+          command: |
             ./mvnw release:perform
       - persist_to_workspace:
           root: .
